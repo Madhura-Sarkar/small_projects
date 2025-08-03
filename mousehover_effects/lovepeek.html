@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Reveal Effect</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bonheur+Royale&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: "Bonheur Royale", cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .reveal-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      cursor: none;
+    }
+
+    .image-bg,
+    .image-fg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .image-fg {
+      z-index: 2;
+      -webkit-mask-image: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), transparent 50%, black 100%);
+      mask-image: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), transparent 50%, black 100%);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      pointer-events: none;
+      transition: mask-image 0.2s ease;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 5%;
+      left: 5%;
+      color: white;
+      font-size: 2rem;
+      z-index: 3;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal-container">
+    <img class="image-bg" src="https://i.pinimg.com/736x/06/7c/a0/067ca0143c1c327edc02309497658522.jpg"
+      alt="Background Image">
+    <img class="image-fg" src="https://i.pinimg.com/736x/ec/e5/fe/ece5fe2aa28659bbf4ce0d1d64aa6ad8.jpg"
+      alt="Foreground Image">
+    <div class="caption">Hover to reveal magic...</div>
+  </div>
+
+  <script>
+    const fgImage = document.querySelector('.image-fg');
+
+    document.addEventListener('mousemove', e => {
+      const x = `${e.clientX}px`;
+      const y = `${e.clientY}px`;
+      fgImage.style.setProperty('--x', x);
+      fgImage.style.setProperty('--y', y);
+    });
+  </script>
+
+</body>
+
+</html>
